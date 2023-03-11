@@ -1,0 +1,195 @@
+---
+title: "HW3-Spandan-Maaheshwari"
+author: "Spandan Maaheshwari"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+Problem 1 ->
+
+```{r}
+library(tidyverse)
+library(tidyr)
+library(dplyr)
+library('ggplot2')
+
+df_1980 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1980.csv")
+df_1981 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1981.csv")
+df_1982 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1982.csv")
+df_1983 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1983.csv")
+df_1984 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1984.csv")
+df_1985 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1985.csv")
+df_1986 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1986.csv")
+df_1987 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1987.csv")
+df_1988 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1988.csv")
+df_1989 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1989.csv")
+df_1990 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1990.csv")
+df_1991 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1991.csv")
+df_1992 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1992.csv")
+df_1993 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1993.csv")
+df_1994 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1994.csv")
+df_1995 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1995.csv")
+df_1996 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1996.csv")
+df_1997 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1997.csv")
+df_1998 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1998.csv")
+df_1999 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_1999.csv")
+df_2000 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2000.csv")
+df_2001 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2001.csv")
+df_2002 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2002.csv")
+df_2003 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2003.csv")
+df_2004 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2004.csv")
+df_2005 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2005.csv")
+df_2006 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2006.csv")
+df_2007 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2007.csv")
+df_2008 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2008.csv")
+df_2009 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2009.csv")
+df_2010 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2010.csv")
+df_2011 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2011.csv")
+df_2012 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2012.csv")
+df_2013 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2013.csv")
+df_2014 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2014.csv")
+df_2015 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2015.csv")
+df_2016 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2016.csv")
+df_2017 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2017.csv")
+df_2018 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2018.csv")
+df_2019 = read.csv("/Users/SPANDAN/DS 5110/annual_aqi_by_county_2019.csv")
+
+# Combining the data files for all years from 1980-2019
+df_combine = dplyr::bind_rows(df_1980, df_1981, df_1982, df_1983, 
+                 df_1984, df_1985, df_1986, df_1987, 
+                 df_1988, df_1989, df_1990, df_1991, 
+                 df_1992, df_1993, df_1994, df_1995, 
+                 df_1996, df_1997, df_1998, df_1999,
+                 df_2000, df_2001, df_2002, df_2003,
+                 df_2004, df_2005, df_2006, df_2007,
+                 df_2008, df_2009, df_2010, df_2011,
+                 df_2012, df_2013, df_2014, df_2015,
+                 df_2016, df_2017, df_2018, df_2019)
+ 
+df_data_yr = select(df_combine,Year, Median.AQI)
+df_data_yr <- group_by(df_data_yr,Year)
+yr_summary <- summarise(df_data_yr, Median.AQI = mean(Median.AQI))
+ggplot(yr_summary)+
+  geom_line(mapping = aes(x=Year,y=Median.AQI),color="red",size=2)
+```
+Explanation for Problem 1:
+
+It is clear from the above line plot that the worst air quality year, 1980, was when the AQI 
+was at its highest. Finally, it saw a significant decline for more than ten years until 1996, 
+following which it rose once more before declining once again in 2000. Another observation is that
+the AQI trended downwards and decreased from 2000 to 2019 before eventually hitting its minimum
+in that year.
+
+
+Problem 2->
+
+```{r}
+library(ggplot2)
+library(maps)
+
+# Creating a new variable for decade
+
+df_combine$decade <- with(df_combine, ifelse(Year>=1980 & Year<=1989, '1980-1989',
+                                            ifelse(Year>=1990 & Year<=1999, '1990-1999',
+                                                   ifelse(Year>=2000 & Year<=2009, '2000-2009',
+                                                          ifelse(Year>=2010 & Year<=2019, '2010-2019','' )))))
+
+x<- mutate(df_combine, region=tolower(df_combine$State))
+x<- x %>% group_by(region,decade) %>% summarise(Median.AQI=mean(Median.AQI),.groups = 'drop')
+states <- map_data("state")
+
+map.df <- left_join(states,x, by=c("region"))
+map.df <- map.df[order(map.df$order),]
+
+ggplot(states, aes(x=long,y=lat,group=group)) +
+  geom_polygon(data = map.df, mapping =aes(x=long,y=lat,group=group,fill=Median.AQI)) +
+    scale_fill_gradientn(colours=rev(heat.colors(10)),na.value="grey90") + facet_wrap(~decade) +
+      geom_path()+ coord_map()
+
+```
+Explanation for Problem 2:
+
+It is clear from the aforementioned chloropleths that the Median AQI had dramatically 
+decreased throughout each state over each decade, only remaining constant in a small number
+of them. With a jump in AQI across Arizona for the decade of 2010-2019, Arizona and West 
+Virginia had the highest AQI during the decade of 1980-1999, which was greatly lowered in
+subsequent decades.
+
+While the AQI dramatically decreased in states with higher levels of AQI during the 
+1980–1989 decade—including California, Utah, Indiana, and Pennsylvania—it remained relatively
+steady in California from the 1990s onward. Another finding is that across all decades, 
+northern states had the lowest AQI.
+
+
+Problem 3->
+
+```{r}
+df_country = read.csv("/Users/SPANDAN/DS 5110/ddf--gapminder--systema_globalis-master/ddf--gapminder--systema_globalis-master/ddf--entities--geo--country.csv")
+df_world_4region = read.csv("/Users/SPANDAN/DS 5110/ddf--gapminder--systema_globalis-master/ddf--gapminder--systema_globalis-master/ddf--entities--geo--world_4region.csv")
+df_count = inner_join(df_country, df_world_4region, by = "world_4region")
+
+x<- select(df_count, 'country', 'world_4region', 'name.y')
+x <- rename(x, Region = name.y)
+x <- group_by(x,Region)
+x_summary <- summarise(x, count = n())
+ggplot(x_summary)+
+  geom_bar(mapping = aes(count, Region, fill=Region), stat="identity") +
+    labs(title = "Count of countries in each region") + 
+      theme(plot.title = element_text(hjust = 0.5) ) + coord_flip()
+```
+Explanation for Problem 3:
+
+Comparing the count of countries in each region using the bar plot concludes that there are 
+highest no of countries in Asia continent, followed by Europe and Africa with countries in
+American region being the least.
+
+
+Problem 4->
+
+```{r}
+
+df_infmort = read.csv("/Users/SPANDAN/DS 5110/ddf--gapminder--systema_globalis-master/ddf--gapminder--systema_globalis-master/countries-etc-datapoints/ddf--datapoints--infant_mortality_rate_per_1000_births--by--geo--time.csv")
+df_infmort <- rename(df_infmort, country = geo)
+df_infmort = inner_join(df_infmort, df_count, by = "country")
+df_infmort<- select(df_infmort, 'infant_mortality_rate_per_1000_births', 'time', 'name.y')
+df_infmort <- rename(df_infmort, Region = name.y)
+
+ggplot(df_infmort, aes(x=time,y=log(infant_mortality_rate_per_1000_births), color=Region)) +
+  geom_point() + facet_wrap(~Region) + geom_smooth(method="lm", color="red")
+    labs(x="Time",y="Infant_mortality_rate_per_1000_births",
+      title="Infant mortality rate over time in each of the four world region") +
+        theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+```
+
+Explanation for Problem 4:
+
+In all four regions, infant mortality rates have significantly decreased over time.
+The highest death rates were initially seen on the European continent in the 1800s, but these 
+rates eventually declined to very low levels. Another finding is that death rates in the Asian
+and American regions have declined significantly while remaining significantly higher in the 
+African continent.
+
+
+Problem 5 ->
+
+```{r}
+
+df_lifeexp = read.csv("/Users/SPANDAN/DS 5110/ddf--gapminder--systema_globalis-master/ddf--gapminder--systema_globalis-master/countries-etc-datapoints/ddf--datapoints--life_expectancy_years--by--geo--time.csv")
+df_lifeexp = inner_join(df_infmort, df_lifeexp, by = "time")
+
+ggplot(df_lifeexp, aes(x=log(infant_mortality_rate_per_1000_births),y=life_expectancy_years, color=Region)) +
+  geom_point() + facet_wrap(~Region)
+      labs(x="Infant mortality rate per 1000 births",y="Life expectancy (years)",
+        title="Relationship between infant mortality and life expectancy, by region") +
+          theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+```
+
+Explanation for Problem 5:
+
+In each of the four regions, we see a negative relationship between life expectancy and the 
+log of infant mortality rate. When infant mortality was little, the highest life expectancy
+was on the continents of Europe and Asia. With mortality rate being significant the life 
+expectancy was at peak across America and Africa region. Another observation is that as the
+mortality rate starts increasing there is a noticeable decline in life expectancy across
+all four regions.
+
